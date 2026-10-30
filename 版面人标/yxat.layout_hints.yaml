@@ -1,0 +1,36 @@
+# yxat 册 yaml 的人标版面（layout_hints）与参数段，摘自中心库 rev 346873（2026-10-28，第 6 版）。
+# 真源在中心库 books/yxat.yaml；这里是存档，改要改中心库（经 A31）。坐标是原图像素、左上原点。
+
+layout_hints:
+  # 依 Sheldon 10-27 逐张人标（原文与逐页表见 guji-workspace 998a1ukohs-*/版面人标/）
+  1-8: skip                # 书衣、空白、内封牌记、图
+  124-126: skip
+  # 列距先验（px，原图）：版里列宽很一致，有它就按等宽网格拟合列（cv column_trace 1.1）
+  # splits 是分栏大约的 y，人标说切几刀就切几刀（cv block_detect 1.3），切位吸到附近的线或空白
+  9-24: {pitch: 115, cols: 12}
+  10-16: {splits: [375, 1170]}                  # 6a–9a：三栏文字，各 12 列，无界栏
+  9:                                            # 5b 上栏（Sheldon 10-28）：右 2 列是标题「歷代國號歌」，左边是小字正文，列宽一半、20 列（331 换行的七言歌）
+    tree: {h: [204, 795, 1592], parts: [{v: [2, 10], parts: [{cols: 2, fmt: plain}, {cols: 20, pitch: 57.5, fmt: plain}]}, {kind: skip}, {cols: 12}]}
+  10-11: {blocks: [{cols: 24, pitch: 57.5, fmt: plain}, {cols: 12}, {cols: 12}]}   # 6a–6b 上栏是小字正文，列宽一半、24 列（Sheldon 10-28；有破损）
+  25-29: {splits: [990], cols: 16}              # 13b–15b：上下两栏各 16 列
+  26-27: {cols: [17, 16]}                       # 14a–14b 上栏 17 列（Sheldon 10-28）
+  29:                                           # 15b 混排：先上下（约 1:2），下栏再左右（右 2 列、左 14 列），左边再上下均分两层（1–2 列两栏、3–16 列三栏）
+    tree: {h: [1, 2], parts: [{cols: 16}, {v: [2, 14], parts: [{cols: 2}, {h: 2, cols: 14}]}]}
+  25:                                           # 13b 上栏右边是「算盤定式」图（题＋算盘），不切；左边文字 9 列
+    tree: {h: [715, 1780], parts: [{v: [625, 725], parts: [{kind: skip}, {cols: 9}]}, {cols: 16}]}
+  30-34: {pitch: 115, splits: [960], cols: 12}  # 16a–18a：上下两栏各 12 列
+  35-92: {pitch: 143, splits: [620, 965], cols: [null, null, 10], blocks: [{kind: skip}, {kind: skip}, {}]}   # 18b–47a：上栏图文先不识别，下栏 10 列
+  35:                                           # 18b 雜字首页：下栏最右是书名大字一列（约两列宽），其余 8 列
+    tree: {h: [330, 345, 1824], parts: [{kind: skip}, {kind: skip}, {v: [250, 1270], parts: [{cols: 1}, {cols: 8}]}]}
+  93-98: {splits: [915, 1045, 1840, 1975], cols: 10}   # 47b–50a：5 行 10 列，2、4 行矮；49b（p97）有自由排版，只 3 行
+  97: {splits: [903, 1039]}
+  98: {splits: [930, 1062, 2192, 2345]}
+  99: {blocks: [{box: [75, 181, 1534, 944], kind: skip}, {box: [75, 969, 1534, 1037], cols: 10}, {box: [75, 1063, 1534, 2770], ruled: true, pitch: 150}]}   # 下栏正文：有界栏但列宽不齐，横界栏处断开
+  100: {blocks: [{box: [43, 186, 1478, 948], kind: skip}, {box: [43, 972, 1478, 1037], cols: 10}, {box: [43, 1061, 1478, 2787], ruled: true, pitch: 150}]}
+  101-102: {splits: [1060], blocks: [{kind: skip}, {ruled: true, pitch: 150}]}   # 51b–52a 只有两栏（Sheldon 10-27 确认）：上栏灵活排版先不切，下栏正文有界栏
+  113-123: {pitch: 145, splits: [945]}      # 上栏小字鳌头＋下栏 10 列（待人标）
+
+
+params:
+  block_detect: {banxin: odd_left}   # 版心：奇数页在左、偶数页在右
+
